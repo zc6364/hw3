@@ -9,68 +9,49 @@
 
 **2160504106**
 
-**提交日期：2019年3月18日**
+**2019年3月18日**
 
  
 
 ## 摘要
 
-本次作业主要通过计算图像的直方图分布，得出以直方图为基础的图像变换方法；有直方图均衡，直方图匹配，局部直方图均衡以及基于直方图的图像分割算法。本次实验使我对于图像直方图的计算与相关的处理有了进一步的认识，使我对于直方图图像处理的知识有了更加深入的理解。
+这次实验实验主要采用了各种直方图处理方法，实验环境为MATLAB。使用其中函数，完成了对附件中图像进行直方图显示、直方图均衡、指定直方图增强、直方图局部增强、直方图分割等功能。
 
  
 
-## 作业实验任务 
+## 实验内容
 
-### 一、输出附件的直方图
+### 1.绘制图像的直方图
 
-把附件图像的直方图画出；
-
-<div align=center><img src="https://latex.codecogs.com/gif.latex?h(r_k)=n_k" alt="h(r_k)=n_k"/></div>
-
-![hw3-1.png](https://raw.githubusercontent.com/oawxkw/sztxcl-hw3/master/dist/hw3-1.png)
-
+直方图是多种空间域处理技术的基础。直方图操作在软件中计算简单，已经成功为图像处理的流行工具。在matlab中，可以采用imhist()函数可以得到图像的直方图。对附件中文件，可以将图片通过ind2gray函数以索引图片的形式读入并显示。
  
 
-### 二、直方图均衡
+### 2.把所有图像进行直方图均衡；输出均衡后的图像和源图像进行比对；并分析改善内容
 
-把所有图像进行直方图均衡；输出均衡后的图像和源图像进行比对；分析改善内容；
+直方图均衡化是指将原图像采取某种变换，得到一幅灰度直方图为均匀分布的新图像的方法，这样增加了像素灰度值的动态范围，从而达到增强图像整体对比度的效果。在MATLAB中可以采用histeq()函数对图像进行直方图均衡操作。
 
-![hw3-2a.png](https://raw.githubusercontent.com/oawxkw/sztxcl-hw3/master/dist/hw3-2a.png)
-
-![hw3-2b.png](https://raw.githubusercontent.com/oawxkw/sztxcl-hw3/master/dist/hw3-2b.png)
 
 **改善内容分析：**
 通过对比图像均衡前后的图像可以明确的到，直方图均衡后的图像明暗对比明显较原图形有所提高。
 
  
 
-### 三、直方图匹配
+### 3.进一步把图像按照对源图像直方图的观察，各自自行指定不同源图像的直方图，进行直方图匹配，进行图像增强；
 
-进一步把图像按照对源图像直方图的观察，各自自行指定不同源图像的直方图，进行直方图匹配，进行图像增强；
 
-该部分将后三幅图像与第一幅图像的直方图进行匹配。
+#<font size=4>&emsp;&emsp;直方图匹配又称为直方图规定化，是指将一幅图像的直方图变成规定形状的直方图而进行的图像增强方法。可以采用imhist()函数，并采取原图像为模板。得到结果如下：
 
-![hw3-3a.png](https://raw.githubusercontent.com/oawxkw/sztxcl-hw3/master/dist/hw3-3a.png)
 
-![hw3-3b.png](https://raw.githubusercontent.com/oawxkw/sztxcl-hw3/master/dist/hw3-3b.png)
 
- 
 
-### 四、局部直方图增强
+### 4.对elain和lena图像进行7*7的局部直方图增强；
+#<font size=4>&emsp;&emsp;这里采用7*7的局部直方图增强，对每个分块进行直方图匹配，在此之前首先应当对图像进行扩展，否则无法对每个像素进行处理，处理结果如下：
 
-对 elain 和 lena 图像进行7*7的局部直方图增强；
 
-![hw3-4a.png](https://raw.githubusercontent.com/oawxkw/sztxcl-hw3/master/dist/hw3-4a.png)
 
-![hw3-4b.png](https://raw.githubusercontent.com/oawxkw/sztxcl-hw3/master/dist/hw3-4b.png)
 
- 
-
-### 五、利用直方图分割图像
-
-利用直方图对图像 elain 和 woman 进行分割。根据 PPT 中的迭代方法进行计算：
-
-![hw3-5.png](https://raw.githubusercontent.com/oawxkw/sztxcl-hw3/master/dist/hw3-5.png)
+### 5.利用直方图对图像elain和woman进行分割；
+#<font size=4>&emsp;&emsp;本任务需要基于直方图进行图像分割，这里采用基于阈值的图像（最大类间方差法--OTSU），matlab中graythresh()函数利用该方法找到一个阈值，配合im2bw()函数即可将图像转变为二值图像。图像分割的结果为：
 
  
 
@@ -83,3 +64,4 @@
 ## 参考文献
 
 [1] 冈萨雷斯, 数字图像处理（第三版）, 电子工业出版社
+
