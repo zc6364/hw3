@@ -1,0 +1,144 @@
+%第一题
+function [] = histogram(a,b)
+%直方图显示
+    [Image,map] = imread(a);
+    Image = ind2gray(Image,map);
+    figure(1);
+    subplot(4,4,b);
+    imhist(Image,256);
+    title(a);
+end
+
+%直方图均衡
+ histogram('elain.bmp',1); 
+ histogram('elain1.bmp',2); 
+ histogram('elain2.bmp',3); 
+ histogram('elain3.bmp',4);  
+ histogram('citywall.bmp',5); 
+ histogram('citywall1.bmp',6); 
+ histogram('citywall2.bmp',7); 
+ histogram('lena.bmp',9); 
+ histogram('lena1.bmp',10); 
+ histogram('lena2.bmp',11); 
+ histogram('lena4.bmp',12); 
+ histogram('woman.bmp',13);
+ histogram('woman1.bmp',14);
+ histogram('woman2.bmp',15);
+ 
+function [] = balance_draw(a,n)
+%直方图均衡
+    [Image map] = imread(a);
+    Image = ind2gray(Image,map);
+    q = histeq(Image,256);
+    figure(1);
+    subplot(4,4,2*n-1);
+    imshow(Image);
+    title(a);
+    %q = adapthisteq(Image);
+    %imhist(q);
+    subplot(4,4,2*n);
+    imshow(q);
+    %title();
+end
+
+%第二题
+%直方图均衡
+balance_draw('elain.bmp',1);
+balance_draw('elain1.bmp',2);
+balance_draw('elain2.bmp',3);
+balance_draw('elain3.bmp',4);
+balance_draw('citywall.bmp',5);
+balance_draw('citywall1.bmp',6);
+balance_draw('citywall2.bmp',7);
+
+
+% balance_draw('lena.bmp',1);
+% balance_draw('lena2.bmp',2);
+% balance_draw('lena4.bmp',3);
+% balance_draw('woman.bmp',5);
+% balance_draw('woman1.bmp',6);
+% balance_draw('woman2.bmp',7);
+
+
+%第三题
+function [] = Histogram_matching(Image1,Image2,n)
+%直方图匹配
+%   此处显示详细说明
+[I1,map] = imread(Image1);
+I1 = ind2gray(I1,map);
+[I2,map] = imread(Image2);
+I2 = ind2gray(I2,map);
+I1_hist = imhist(I1);
+I2_matching = histeq(I2,I1_hist);
+%figure(1);
+%imhist(I2);
+figure(2);
+subplot(3,4,4*n-3);
+imshow(I2);
+title(Image2);
+subplot(3,4,4*n-1);
+imhist(I2_matching);
+title('匹配后');
+subplot(3,4,4*n);
+imshow(I2_matching);
+title('匹配后');
+subplot(3,4,4*n-2);
+imhist(I2);
+title('匹配前');
+end
+
+% Histogram_matching('elain.bmp','elain1.bmp',1);
+% Histogram_matching('elain.bmp','elain2.bmp',2);
+% Histogram_matching('elain.bmp','elain3.bmp',3);
+
+
+% Histogram_matching('lena.bmp','lena1.bmp',1);
+% Histogram_matching('lena.bmp','lena2.bmp',2);
+% Histogram_matching('lena.bmp','lena4.bmp',3);
+
+
+
+% Histogram_matching('citywall.bmp','citywall1.bmp',1);
+% Histogram_matching('citywall.bmp','citywall2.bmp',2);
+
+
+Histogram_matching('woman.bmp','woman1.bmp',1);
+Histogram_matching('woman.bmp','woman2.bmp',2);
+
+%第四题
+function [] = Local_enhancement(Image,n)
+%局部增强
+q = imread(Image);
+model(1:n,1:n) = 1;
+imgTend = wextend('2D','sym',q ,n);
+q_double = double(imgTend);
+[Row,Column] = size(q_double);
+%点乘循环
+for i = n+1:Row-n
+    for j = n+1:Column-n
+        Point_multiplication = q_double(i:i+n-1,j:j+n-1).*model(1:n,1:n);
+        p = histeq(uint8(Point_multiplication));
+        Result_matrix(i-n,j-n) = p((n+1)/2,(n+1)/2);       
+    end
+end
+figure(3);
+imshow(Result_matrix);
+end
+
+%第五题
+function [] = Histogram_segmentation(Image)
+%直方图分割
+I = imread(Image);
+imhist(I);
+[row, column] = size(I);
+segline = graythresh(I)*256;
+for i = 1:row
+    for j = 1:column
+        if I(i,j) > segline
+            I(i,j) = 1;
+        else 
+            I(i,j) = 0;
+        end
+    end
+    
+
